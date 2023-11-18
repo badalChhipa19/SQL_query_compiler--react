@@ -18,6 +18,9 @@
 .form__input:focus{
   outline: none;
 }
+.form__input::-webkit-input-placeholder{
+  opacity: .5;
+}
 
 .form__btn{
   border: none;
@@ -30,4 +33,16 @@
 }
 .form__btn:hover{
   background-color: #4dabf7;
+}
+
+.btn__clear{
+  background-color: #eee8aa;
+}
+.btn__clear:hover{
+  background-color: #e7e07f;
+}
+
+.btn__box{
+  display: flex;
+  gap: 2rem;
 }

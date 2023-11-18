@@ -2,8 +2,6 @@
   padding: 2rem;
   display: flex;
   gap: 3rem;
-  height: 96.5vh;
-
 }
 
 
@@ -11,7 +9,11 @@
   width: 60vw;
   display: flex;
   flex-direction: column;
-  /* background-color: palegoldenrod; */
+}
+
+.result__table{
+  width: 100%;
+  height: 60rem ;
 }
 
 .history_details_container{

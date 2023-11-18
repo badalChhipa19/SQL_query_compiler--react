@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+
 import {people, company} from './assets/data';
-import FromContainer from './components/form.component';
+import FromContainer from './components/form/form.component';
+import TableNames from './components/table_names/table_name.component';
+import HistoryContainer from './components/history/history.component';
+import ResultTable from './components/result_table/result_table.component';
 
 import './App.css'
 
@@ -38,9 +42,8 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setHistory([...history, value]);
     if(value.startsWith("SELECT") && (value.replace(';', '').endsWith('people') || value.replace(';', '').endsWith('company'))){
-      
+      setHistory([...history, value]);
       if(value.includes('*') ){
         if(value.includes('people')){
           setColumnName(Object.keys(peopleData[0]))
@@ -66,6 +69,8 @@ function App() {
     }
   }
 
+  const clearTextareHandler = () => setValue('')
+
   const handleChange = (e) =>{
     const input = e.target.value;
     setValue(input);    
@@ -86,49 +91,15 @@ function App() {
   return (
     <div className="App">
       <div className='query_result_container'>
-        <FromContainer submitFormHandler={handleSubmit} onChangeHandler={handleChange} values={value} />
-
-        <div className='result'>
-          <h1>Result</h1>
-          <table className='result__table'>
-            <thead>
-              <tr>
-                {columnName.map(name => <th>{name}</th>)}
-              </tr>
-            </thead>
-            <tbody>
-              {result.map(item => <tr key={count++}>
-                {columnName.map(el => <td key={count++}>{item[el]}</td>)}
-              </tr>)}
-            </tbody>
-          </table>
-        </div>
+        <FromContainer submitFormHandler={handleSubmit} onChangeHandler={handleChange} values={value} clearTextareHandler={clearTextareHandler}/>
+        <ResultTable columnName={columnName} result={result} count={count} />
       </div>
-      
-      <div className='history_details_container'>
-        <div className='details'>
-          <ul className='list query__list'>
-          <h2 className='heading__secondary'>Queries Available</h2>
-            <li className='item query__item'>All types of SELECT</li>
-          </ul>
-
-          <ul className='list table__list'>
-          <h2 className='heading__secondary'>Tables Available</h2>
-            <li className='item tbale__item'>people</li>
-            <li className='item tbale__item'>company</li>
-          </ul>
-        </div>
+      <div>
+        <TableNames />
+        <HistoryContainer history={history} count={count} />
+      </div> 
         
-        <div className='history'>
-          <h2>History: </h2>
-          <ul className='list history__list'>
-            {
-              history.map(item => <li className='item history__item' key={count++}>{item}</li>)
-            }
-          </ul>
-        </div>
       </div>
-    </div>     
   );
 }
 
