@@ -1,7 +1,9 @@
+import './form.style.css';
+
 const FromContainer = ({submitFormHandler, onChangeHandler, values}) => {
-  return <form onSubmit={submitFormHandler}>
-    <textarea rows="10" cols="50" onChange={onChangeHandler} value={values}></textarea>
-    <button>Run</button>
+  return <form className='form' onSubmit={submitFormHandler}>
+    <textarea type='text' className='form__input'  onChange={onChangeHandler} value={values} />
+    <button className='form__btn'>Run</button>
   </form>
 }
 

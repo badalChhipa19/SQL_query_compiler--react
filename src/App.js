@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {people, company} from './assets/data';
 import FromContainer from './components/form.component';
 
+import './App.css'
+
 function App() {
   //! DATA that we have
   const [peopleData, setPeople] = useState('');
@@ -20,7 +22,6 @@ function App() {
   const [history, setHistory] = useState([]);
 
   const setResults = (table, columnsArr = null) => {
-    
     if(columnsArr){
       const finalArray = table.map(person => {
         const newObj = {};
@@ -84,34 +85,50 @@ function App() {
   
   return (
     <div className="App">
-      <FromContainer submitFormHandler={handleSubmit} onChangeHandler={handleChange} values={value} />
+      <div className='query_result_container'>
+        <FromContainer submitFormHandler={handleSubmit} onChangeHandler={handleChange} values={value} />
 
-      <div className='result'>
-      <h1>Result</h1>
-        <table className='result__table'>
-          <thead>
-            <tr>
-              {columnName.map(name => <th>{name}</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            {result.map(item => <tr key={count++}>
-              {columnName.map(el => <td key={count++}>{item[el]}</td>)}
-            </tr>)}
-          </tbody>
-        </table>
+        <div className='result'>
+          <h1>Result</h1>
+          <table className='result__table'>
+            <thead>
+              <tr>
+                {columnName.map(name => <th>{name}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {result.map(item => <tr key={count++}>
+                {columnName.map(el => <td key={count++}>{item[el]}</td>)}
+              </tr>)}
+            </tbody>
+          </table>
+        </div>
       </div>
+      
+      <div className='history_details_container'>
+        <div className='details'>
+          <ul className='list query__list'>
+          <h2 className='heading__secondary'>Queries Available</h2>
+            <li className='item query__item'>All types of SELECT</li>
+          </ul>
 
-       
-      <div className='history'>
-        <h2>History: </h2>
-        <ul className='history__list'>
-          {
-            history.map(item => <li className='history__item' key={count++}>{item}</li>)
-          }
-        </ul>
+          <ul className='list table__list'>
+          <h2 className='heading__secondary'>Tables Available</h2>
+            <li className='item tbale__item'>people</li>
+            <li className='item tbale__item'>company</li>
+          </ul>
+        </div>
+        
+        <div className='history'>
+          <h2>History: </h2>
+          <ul className='list history__list'>
+            {
+              history.map(item => <li className='item history__item' key={count++}>{item}</li>)
+            }
+          </ul>
+        </div>
       </div>
-    </div>
+    </div>     
   );
 }
 
